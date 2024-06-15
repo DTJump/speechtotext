@@ -7,7 +7,8 @@ import faster_whisper
 import torch.cuda
 
 # Initialize Whisper model
-model = faster_whisper.WhisperModel(model_size_or_path="tiny.en", device='cuda')
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+model = faster_whisper.WhisperModel(model_size_or_path="tiny.en", device=device)
 
 def transcribe_audio():
     # Wait until user presses space bar
