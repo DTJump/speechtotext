@@ -14,6 +14,9 @@ model = faster_whisper.WhisperModel(model_size_or_path="tiny.en", device=device)
 
 def transcribe_audio():
     try:
+        # Disable the start button to prevent multiple recordings
+        start_button.config(state=DISABLED)
+        
         # Update the GUI to show waiting message
         info_label.config(text="Tap space when you're ready...")
         root.update()
@@ -52,6 +55,9 @@ def transcribe_audio():
     except Exception as e:
         messagebox.showerror("Error", str(e))
         info_label.config(text="An error occurred.")
+    finally:
+        # Re-enable the start button after processing is complete
+        start_button.config(state=NORMAL)
 
 # Create the main window
 root = Tk()
